@@ -33,6 +33,11 @@ function requestPassword() {
     return requestPassword();
   } else {
     console.log('step#3 passed =', numCharacters);
+    window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
+    window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
+    window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
+    window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
+    window.alert('Must select at least one character type, please.');
     password = createPassword(numCharacters);
     return password;
   }
@@ -43,25 +48,13 @@ function requestPassword() {
 
 function createPassword(numCharacters) {
   const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-  // let number;
-  // let randomNum = [];
   let password = [];
 
   for (let i = 0; i < numCharacters; i++) {
     number = Math.floor(Math.random() * alphabet.length);
-    // randomNum.push(number);
-    // console.log(randomNum);
     console.log(numCharacters);
     password.push(alphabet[number]);
-    // randomNum.push(number);
   }
-
-  // console.log(randomNum);
-
-  // for (let i = 0; i < randomNum.length; i++) {
-  //   console.log(alphabet[i])
-  //   password.push(alphabet[i]);
-  // }
 
   console.log(password);
   console.log(password.length);
