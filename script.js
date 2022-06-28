@@ -23,10 +23,7 @@ function generatePassword() {
 
 function requestPassword() {
   let password;
-  let specialCharacters;
-  let numericCharacters;
-  let lowerCaseCharacters;
-  let upperCaseCharacters;
+  let returned;
 
   let numberOfCharacters = window.prompt('How many characters would you like the password to contain?', 8)
   console.log('step1=', numberOfCharacters)
@@ -38,11 +35,8 @@ function requestPassword() {
   } else {
     console.log('step#3 passed =', numberOfCharacters);
 
-    specialCharacters =  window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
-    numericCharacters =  window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
-    lowerCaseCharacters =  window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
-    upperCaseCharacters =  window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
-    console.log(specialCharacters, numericCharacters, lowerCaseCharacters, upperCaseCharacters);
+    returned = characterDefinition();
+    console.log('returned=', returned);
 
     window.alert('Must select at least one character type, please.');
     password = createPassword(numberOfCharacters);
@@ -51,6 +45,36 @@ function requestPassword() {
 
   console.log('step4=', numberOfCharacters);
   return numberOfCharacters;
+}
+
+function characterDefinition() {
+  let specialCharacters;
+  let numericCharacters;
+  let lowerCaseCharacters;
+  let upperCaseCharacters;
+  let characterComposition = [];
+
+  specialCharacters =  window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
+  characterComposition.push(specialCharacters);
+
+  numericCharacters =  window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
+  characterComposition.push(numericCharacters);
+
+  lowerCaseCharacters =  window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
+  characterComposition.push(lowerCaseCharacters);
+
+  upperCaseCharacters =  window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
+  characterComposition.push(upperCaseCharacters);
+
+  console.log(characterComposition);
+  console.log(characterComposition.includes(false));
+  if (characterComposition.includes(false)) {
+
+  }
+  
+
+  console.log(specialCharacters, numericCharacters, lowerCaseCharacters, upperCaseCharacters);
+  return characterComposition;
 }
 
 function createPassword(numberOfCharacters) {
