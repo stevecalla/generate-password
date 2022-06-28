@@ -23,36 +23,43 @@ function generatePassword() {
 
 function requestPassword() {
   let password;
+  let specialCharacters;
+  let numericCharacters;
+  let lowerCaseCharacters;
+  let upperCaseCharacters;
 
-  let numCharacters = window.prompt('How many characters would you like the password to contain?', 8)
-  console.log('step1=', numCharacters)
+  let numberOfCharacters = window.prompt('How many characters would you like the password to contain?', 8)
+  console.log('step1=', numberOfCharacters)
 
-  if (numCharacters < 8 || numCharacters > 128) {
-    console.log('step#2 failed =', numCharacters);
+  if (numberOfCharacters < 8 || numberOfCharacters > 128) {
+    console.log('step#2 failed =', numberOfCharacters);
     window.confirm('Password must be at least 8 characters.');
     return requestPassword();
   } else {
-    console.log('step#3 passed =', numCharacters);
-    window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
-    window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
-    window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
-    window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
+    console.log('step#3 passed =', numberOfCharacters);
+
+    specialCharacters =  window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
+    numericCharacters =  window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
+    lowerCaseCharacters =  window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
+    upperCaseCharacters =  window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
+    console.log(specialCharacters, numericCharacters, lowerCaseCharacters, upperCaseCharacters);
+
     window.alert('Must select at least one character type, please.');
-    password = createPassword(numCharacters);
+    password = createPassword(numberOfCharacters);
     return password;
   }
 
-  console.log('step4=', numCharacters);
-  return numCharacters;
+  console.log('step4=', numberOfCharacters);
+  return numberOfCharacters;
 }
 
-function createPassword(numCharacters) {
+function createPassword(numberOfCharacters) {
   const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   let password = [];
 
-  for (let i = 0; i < numCharacters; i++) {
+  for (let i = 0; i < numberOfCharacters; i++) {
     number = Math.floor(Math.random() * alphabet.length);
-    console.log(numCharacters);
+    console.log(numberOfCharacters);
     password.push(alphabet[number]);
   }
 
