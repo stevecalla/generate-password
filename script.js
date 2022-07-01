@@ -48,22 +48,22 @@ function requestPassword() {
 }
 
 function characterDefinition() {
-  let specialCharacters;
-  let numericCharacters;
-  let lowerCaseCharacters;
-  let upperCaseCharacters;
+  let includeSpecialCharacters;
+  let includeNumericCharacters;
+  let includeLowerCaseCharacters;
+  let includeUpperCaseCharacters;
   let characterComposition = [];
 
-  specialCharacters =  window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
+  includeSpecialCharacters =  window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
   characterComposition.push(specialCharacters);
 
-  numericCharacters =  window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
+  includeNumericCharacters =  window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
   characterComposition.push(numericCharacters);
 
-  lowerCaseCharacters =  window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
+  includeLowerCaseCharacters =  window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
   characterComposition.push(lowerCaseCharacters);
 
-  upperCaseCharacters =  window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
+  includeUpperCaseCharacters =  window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
   characterComposition.push(upperCaseCharacters);
 
   console.log(characterComposition);
@@ -79,10 +79,11 @@ function characterDefinition() {
 
 function createPassword(numberOfCharacters) {
   const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+  const specialCharacters = ['!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~',']',';'];
   let password = [];
 
   for (let i = 0; i < numberOfCharacters; i++) {
-    number = Math.floor(Math.random() * alphabet.length);
+    number = Math.floor(Math.random() * specialCharacters.length);
     console.log(numberOfCharacters);
     password.push(alphabet[number]);
   }
