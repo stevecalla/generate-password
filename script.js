@@ -77,23 +77,44 @@ function characterDefinition() {
 
 function createPassword(numberOfCharacters) {
   const alphabetLowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+  const alphabetUpperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   const specialCharacters = ['!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~',']',';'];
   const numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
-  const alphabetUpperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
   console.log('lower length = ', alphabetLowerCase.length, 'special length = ', specialCharacters.length, 'upper length =', alphabetUpperCase.length, 'num length =', numbers.length);
 
   let randomNumbers = [];
   let password = [];
+  let characterSelection = [];
+  let characterArray = [];
+
+  for (let i = 0; i < numberOfCharacters; i++) {
+    let number2 = Math.floor(Math.random() * 4);
+    characterSelection.push(number2);
+  }
 
 
   for (let i = 0; i < numberOfCharacters; i++) {
-    number = Math.floor(Math.random() * numbers.length);
+    if (characterSelection[i] === 0) {
+      characterArray = alphabetLowerCase;
+    } else if (characterSelection[i] === 1) {
+      characterArray = alphabetUpperCase;
+    } else if (characterSelection[i] === 2) {
+      characterArray = specialCharacters;
+    } else {
+      characterArray = numbers;
+    }
+
+    console.log(characterArray);
+
+    let number = Math.floor(Math.random() * characterArray.length);
     // console.log(numberOfCharacters);
     randomNumbers.push(number);
-    password.push(numbers[number]);
+    password.push(characterArray[number]);
   }
 
+  console.log(characterSelection);
+  console.log(characterSelection.length);
   console.log(randomNumbers);
   console.log(password);
   console.log(password.length);
