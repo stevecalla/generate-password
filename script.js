@@ -15,7 +15,6 @@ function writePassword() {
 }
 
 // My code
-
 function generatePassword() {
   let password = requestPassword();
   return password;
@@ -35,10 +34,10 @@ function requestPassword() {
   } else {
     console.log('step#3 passed =', numberOfCharacters);
 
-    returned = characterDefinition();
-    console.log('returned=', returned);
+    // returned = characterDefinition();
+    // console.log('returned=', returned);
+    // window.alert('Must select at least one character type, please.');
 
-    window.alert('Must select at least one character type, please.');
     password = createPassword(numberOfCharacters);
     return password;
   }
@@ -77,16 +76,24 @@ function characterDefinition() {
 }
 
 function createPassword(numberOfCharacters) {
-  const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+  const alphabetLowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   const specialCharacters = ['!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~',']',';'];
+  const numbers = [0,1,2,3,4,5,6,7,8,9];
+  const alphabetUpperCase = [];
+
+  console.log('alphabetLowerCase length = ', alphabetLowerCase.length, 'special characters length = ', specialCharacters.length);
+
+  let randomNumbers = [];
   let password = [];
 
   for (let i = 0; i < numberOfCharacters; i++) {
-    number = Math.floor(Math.random() * specialCharacters.length);
-    console.log(numberOfCharacters);
-    password.push(alphabet[number]);
+    number = Math.floor(Math.random() * numbers.length);
+    // console.log(numberOfCharacters);
+    randomNumbers.push(number);
+    password.push(numbers[number]);
   }
 
+  console.log(randomNumbers);
   console.log(password);
   console.log(password.length);
   return password.join('');
