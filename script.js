@@ -78,13 +78,14 @@ function characterDefinition() {
 function createPassword(numberOfCharacters) {
   const alphabetLowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   const specialCharacters = ['!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~',']',';'];
-  const numbers = [0,1,2,3,4,5,6,7,8,9];
-  const alphabetUpperCase = [];
+  const numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+  const alphabetUpperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-  console.log('alphabetLowerCase length = ', alphabetLowerCase.length, 'special characters length = ', specialCharacters.length);
+  console.log('lower length = ', alphabetLowerCase.length, 'special length = ', specialCharacters.length, 'upper length =', alphabetUpperCase.length, 'num length =', numbers.length);
 
   let randomNumbers = [];
   let password = [];
+
 
   for (let i = 0; i < numberOfCharacters; i++) {
     number = Math.floor(Math.random() * numbers.length);
