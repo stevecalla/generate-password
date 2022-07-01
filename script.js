@@ -72,8 +72,7 @@ function characterDefinition() {
 
   }
   
-
-  console.log(specialCharacters, numericCharacters, lowerCaseCharacters, upperCaseCharacters);
+  console.log(includeSpecialCharacters, includeNumericCharacters, includeLowerCaseCharacters, includeUpperCaseCharacters);
   return characterComposition;
 }
 
