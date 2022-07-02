@@ -14,12 +14,19 @@ function writePassword() {
 // My code
 function generatePassword() {
   let passwordLength = getPasswordLength();
+  console.log('1', passwordLength)
   let validPasswordLength = validatePasswordLength(passwordLength);
+  console.log('2', validPasswordLength)
   let isCharacterType = validPasswordLength ? getCharacterTypes() : undefined;
+  console.log('3', isCharacterType)
   let characterType = isCharacterType ? convertCharacterType(isCharacterType): undefined;
+  console.log('4', characterType)
   let validCharacterTypes = characterType ? validateCharacterTypes(characterType) : undefined;
+  console.log('5', validCharacterTypes)
   let characterTypeList = validCharacterTypes ? getCharacterTypeList(validPasswordLength, validCharacterTypes): undefined;
+  console.log('6', characterTypeList)
   let password = characterTypeList ? createPassword(characterTypeList) : generatePassword();
+  console.log('7', password)
   return password;
 }
 
@@ -76,11 +83,20 @@ function convertCharacterType(isCharacterType) {
 
 //check that character type selected array length is greater than 0; if not request again
 function validateCharacterTypes(characterTypes) {
-  if (!characterTypes.length > 0) {
+  // if (!characterTypes.length > 0) {
+  if (characterTypes.length === 0) {
     window.alert(`Password must contain at least one character type.\n\nPlease try again.`);
-    return generatePassword();
-    // return getCharacterTypes();
+
+    let isCharacterType = getCharacterTypes();
+    console.log(isCharacterType);
+    let characterType = convertCharacterType(isCharacterType);
+    console.log(characterType);
+    let validCharacterTypes = validateCharacterTypes(characterType);
+    console.log(validCharacterTypes);
+
+    return validCharacterTypes;
   }
+  // console.trace();
   return characterTypes;
 }
 
@@ -121,7 +137,9 @@ function createPassword(characterSelection) { //refactor
       characters = numbers;
     } else {
       console.log('something went wrong');
-      return;
+      console.trace();
+      // return generatePassword();
+      return getCharacterTypes();
     }
 
     //randomly select each character for password (from character arrays)
