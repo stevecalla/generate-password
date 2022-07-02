@@ -24,10 +24,14 @@ function requestPassword() {
   let password;
   let returned;
 
-  let numberOfCharacters = window.prompt('How many characters would you like the password to contain?', 8)
+  let numberOfCharacters = parseInt(window.prompt('How many characters would you like the password to contain?', 8));
   console.log('step1=', numberOfCharacters)
 
-  if (numberOfCharacters < 8 || numberOfCharacters > 128) {
+  console.log(typeof numberOfCharacters);
+  // || typeof numberOfCharacters !== 'number'
+  // numberOfCharacters < 8 || numberOfCharacters > 128 || 
+
+  if (isNaN(numberOfCharacters) || numberOfCharacters < 8 || numberOfCharacters > 128) {
     console.log('step#2 failed =', numberOfCharacters);
     window.confirm('Password must be at least 8 characters.');
     return requestPassword();
