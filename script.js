@@ -24,7 +24,7 @@ function requestPassword() {
   let numberOfCharacters = parseInt(window.prompt('How many characters would you like the password to contain?', 8));
 
   if (isNaN(numberOfCharacters) || numberOfCharacters < 8 || numberOfCharacters > 128) {
-    window.confirm('Password must be at least 8 characters.');
+    window.alert(`Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`);
     return requestPassword();
   } else {
     let returned = characterDefinition();
@@ -54,7 +54,7 @@ function characterDefinition() {
   characterComposition.push(includeNumericCharacters);
 
   if (!characterComposition.includes(true)) {
-    window.alert('Must select at least one character type, please.')
+    window.alert(`Password must contain at least one character type.\n\nPlease try again.`)
     return characterDefinition();
   }
 
