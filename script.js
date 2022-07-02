@@ -21,7 +21,7 @@ function requestPassword() {
   let password;
   let returned;
 
-  let numberOfCharacters = parseInt(window.prompt('How many characters would you like the password to contain?', 8));
+  let numberOfCharacters = parseInt(window.prompt('How many characters would you like the password to contain?\n(must be at least 8 and at most 128)', 8));
 
   if (isNaN(numberOfCharacters) || numberOfCharacters < 8 || numberOfCharacters > 128) {
     window.alert(`Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`);
