@@ -12,21 +12,24 @@ function writePassword() {
 }
 
 // My code
-
 function generatePassword() {
   let passwordLength = getPasswordLength();
   let validPasswordLength = validatePasswordLength(passwordLength);
-  let characterTypes = validPasswordLength ? getCharacterTypes() : undefined;
-  let validCharacterTypes = characterTypes ? validateCharacterTypes(characterTypes) : undefined;
-  let password = validCharacterTypes ? createPassword(validPasswordLength, validCharacterTypes) : generatePassword(); //refactor
+  let isCharacterType = validPasswordLength ? getCharacterTypes() : undefined;
+  let characterType = isCharacterType ? convertCharacterType(isCharacterType): undefined;
+  let validCharacterTypes = characterType ? validateCharacterTypes(characterType) : undefined;
+  let characterTypeList = validCharacterTypes ? getCharacterTypeList(validPasswordLength, validCharacterTypes): undefined;
+  let password = validCharacterTypes ? createPassword(validPasswordLength, characterTypeList) : generatePassword();
   return password;
 }
 
+//get password length input
 function getPasswordLength() {
   let numberOfCharacters = parseInt(window.prompt('How many characters would you like the password to contain?\n(must be at least 8 and at most 128)', 8));
   return numberOfCharacters;
 }
 
+//ensure password length is a number (isNaN), is at least 8, is at most 128
 function validatePasswordLength(passwordLength) {
   if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
     window.alert(`Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`);
@@ -37,6 +40,7 @@ function validatePasswordLength(passwordLength) {
   }
 }
 
+//get character type selection (e.g. lower, upper, special, number)
 function getCharacterTypes() {
   let characterSelection = [];
 
@@ -55,58 +59,80 @@ function getCharacterTypes() {
   return characterSelection;
 }
 
+//convert character selection true/false to number lookup representing each character type/array
+function convertCharacterType(isCharacterType) { 
+  console.log(isCharacterType);
+  let convertedCharacterSelection = [];
+
+  for (let i = 0; i < isCharacterType.length; i++) {
+    if (isCharacterType[i]) {
+      convertedCharacterSelection.push(i);
+    }
+  }
+
+  console.log(convertedCharacterSelection);
+  return convertedCharacterSelection;
+}
+
+//check that character type selected array length is greater than 0; if not request again
 function validateCharacterTypes(characterTypes) {
-  if (!characterTypes.includes(true)) {
-    window.alert(`Password must contain at least one character type.\n\nPlease try again.`)
-    return getCharacterTypes();
+  if (!characterTypes.length > 0) {
+    window.alert(`Password must contain at least one character type.\n\nPlease try again.`);
+    return generatePassword();
+    // return getCharacterTypes();
   }
   return characterTypes;
 }
 
-function createPassword(numberOfCharacters, characterTypes) { //refactor
-  let returned2 = [];
+//randomly select character type for each character in the password
+function getCharacterTypeList(numberOfCharacters, characterTypes) {
+  let randomNumber;
+  let characterSelection = [];
 
-  for (let i = 0; i < characterTypes.length; i++) {
-    if (characterTypes[i]) {
-      returned2.push(i);
-    }
+  for (let i = 0; i < numberOfCharacters; i++) {
+    randomNumber = getRandomNumber(characterTypes.length);
+    characterSelection.push(characterTypes[randomNumber]);
   }
 
+  return characterSelection;
+}
+
+//creates password
+function createPassword(numberOfCharacters, characterSelection) { //refactor
   const alphabetLowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   const alphabetUpperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   const specialCharacters = ['!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~',']',';'];
   const numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 
-  let randomNumbers = [];
   let password = [];
-  let characterSelection = [];
-  let characterArray = [];
+  let randomNumber;
+  let characters = [];
 
-  for (let i = 0; i < numberOfCharacters; i++) {
-    let number2 = getRandomNumber(returned2.length);
-    characterSelection.push(returned2[number2]);
-  }
-
+  //determines which character array to select character from
   for (let i = 0; i < numberOfCharacters; i++) {
     if (characterSelection[i] === 0) {
-      characterArray = alphabetLowerCase;
+      characters = alphabetLowerCase;
     } else if (characterSelection[i] === 1) {
-      characterArray = alphabetUpperCase;
+      characters = alphabetUpperCase;
     } else if (characterSelection[i] === 2) {
-      characterArray = specialCharacters;
+      characters = specialCharacters;
+    } else if (characterSelection[i] === 3) {
+      characters = numbers;
     } else {
-      characterArray = numbers;
+      console.log('something went wrong');
+      return;
     }
 
-    let number = getRandomNumber(characterArray.length);
-    randomNumbers.push(number);
-    password.push(characterArray[number]);
+    //randomly select each character for password (from character arrays)
+    randomNumber = getRandomNumber(characters.length);
+    password.push(characters[randomNumber]);
   }
   return password.join('');
 }
 
-function getRandomNumber(number) {
-  let randomNumber = Math.floor(Math.random() * number);
+//generates random number as requested
+function getRandomNumber(arrayLength) {
+  let randomNumber = Math.floor(Math.random() * arrayLength);
   return randomNumber;
 }
 
