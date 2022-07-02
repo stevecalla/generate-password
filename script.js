@@ -61,7 +61,7 @@ function getCharacterTypes() {
 
 //convert character selection true/false to number lookup representing each character type/array
 function convertCharacterType(isCharacterType) { 
-  console.log(isCharacterType);
+  // console.log(isCharacterType);
   let convertedCharacterSelection = [];
 
   for (let i = 0; i < isCharacterType.length; i++) {
@@ -70,7 +70,7 @@ function convertCharacterType(isCharacterType) {
     }
   }
 
-  console.log(convertedCharacterSelection);
+  // console.log(convertedCharacterSelection);
   return convertedCharacterSelection;
 }
 
