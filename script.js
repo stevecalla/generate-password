@@ -57,23 +57,24 @@ function characterDefinition() {
   let includeUpperCaseCharacters;
   let characterComposition = [];
 
-  includeLowerCaseCharacters =  window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
+  includeLowerCaseCharacters =  window.confirm(`LOWER CASE?\n\n(click OK to include & CANCEL to exclude)`);
   characterComposition.push(includeLowerCaseCharacters);
   
-  includeUpperCaseCharacters =  window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
+  includeUpperCaseCharacters =  window.confirm(`Upper Case?\n\n(click OK to include & CANCEL to exclude)`);
   characterComposition.push(includeUpperCaseCharacters);
 
-  includeSpecialCharacters =  window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
+  includeSpecialCharacters =  window.confirm(`Special Characters?\n\n(click OK to include & CANCEL to exclude)`);
   characterComposition.push(includeSpecialCharacters);
 
-  includeNumericCharacters =  window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
+  includeNumericCharacters =  window.confirm(`Numeric Characters?\n\n(click OK to include & CANCEL to exclude)`);
   characterComposition.push(includeNumericCharacters);
 
   console.log(characterComposition);
   console.log(characterComposition.includes(false));
 
-  if (characterComposition.includes(false)) {
-
+  if (!characterComposition.includes(true)) {
+    window.alert('Must select at least one character type, please.')
+    return characterDefinition();
   }
   
   console.log(includeSpecialCharacters, includeNumericCharacters, includeLowerCaseCharacters, includeUpperCaseCharacters);
