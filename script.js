@@ -12,29 +12,30 @@ function writePassword() {
 }
 
 // My code
+
 function generatePassword() {
-  let password = requestPassword();
+  let passwordLength = getPasswordLength();
+  let validPasswordLength = validatePasswordLength(passwordLength);
+  let characterTypes = getCharacterSelection(validPasswordLength); //refactor
+  let password = createPassword(validPasswordLength, characterTypes); //refactor
   return password;
 }
 
-function requestPassword() {
-  let password;
-  let returned;
-
+function getPasswordLength() {
   let numberOfCharacters = parseInt(window.prompt('How many characters would you like the password to contain?\n(must be at least 8 and at most 128)', 8));
-
-  if (isNaN(numberOfCharacters) || numberOfCharacters < 8 || numberOfCharacters > 128) {
-    window.alert(`Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`);
-    return requestPassword();
-  } else {
-    let returned = characterDefinition();
-    password = createPassword(numberOfCharacters, returned);
-    return password;
-  }
   return numberOfCharacters;
 }
 
-function characterDefinition() {
+function validatePasswordLength(passwordLength) {
+  if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+    window.alert(`Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`);
+    return generatePassword();
+  } else {
+    return passwordLength;
+  }
+}
+
+function getCharacterSelection() {
   let includeSpecialCharacters;
   let includeNumericCharacters;
   let includeLowerCaseCharacters;
@@ -55,17 +56,17 @@ function characterDefinition() {
 
   if (!characterComposition.includes(true)) {
     window.alert(`Password must contain at least one character type.\n\nPlease try again.`)
-    return characterDefinition();
+    return getCharacterSelection();
   }
 
   return characterComposition;
 }
 
-function createPassword(numberOfCharacters, returned) {
+function createPassword(numberOfCharacters, characterTypes) {
   let returned2 = [];
 
-  for (let i = 0; i < returned.length; i++) {
-    if (returned[i]) {
+  for (let i = 0; i < characterTypes.length; i++) {
+    if (characterTypes[i]) {
       returned2.push(i);
     }
   }
@@ -81,7 +82,8 @@ function createPassword(numberOfCharacters, returned) {
   let characterArray = [];
 
   for (let i = 0; i < numberOfCharacters; i++) {
-    let number2 = Math.floor(Math.random() * returned2.length);
+    let number2 = getRandomNumber(returned2.length);
+    console.log('87 = ', number2)
     characterSelection.push(returned2[number2]);
   }
 
@@ -96,10 +98,16 @@ function createPassword(numberOfCharacters, returned) {
       characterArray = numbers;
     }
 
-    let number = Math.floor(Math.random() * characterArray.length);
+    let number = getRandomNumber(characterArray.length);
     randomNumbers.push(number);
     password.push(characterArray[number]);
   }
+  console.log(password.join(''));
   return password.join('');
+}
+
+function getRandomNumber(number) {
+  let randomNumber = Math.floor(Math.random() * number);
+  return randomNumber;
 }
 
