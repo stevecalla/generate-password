@@ -34,11 +34,11 @@ function requestPassword() {
   } else {
     console.log('step#3 passed =', numberOfCharacters);
 
-    // returned = characterDefinition();
+    let returned = characterDefinition();
     // console.log('returned=', returned);
     // window.alert('Must select at least one character type, please.');
 
-    password = createPassword(numberOfCharacters);
+    password = createPassword(numberOfCharacters, returned);
     return password;
   }
 
@@ -53,20 +53,21 @@ function characterDefinition() {
   let includeUpperCaseCharacters;
   let characterComposition = [];
 
+  includeLowerCaseCharacters =  window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
+  characterComposition.push(includeLowerCaseCharacters);
+  
+  includeUpperCaseCharacters =  window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
+  characterComposition.push(includeUpperCaseCharacters);
+
   includeSpecialCharacters =  window.confirm('Special Characters: Click OK to include & CANCEL to exclude.');
   characterComposition.push(includeSpecialCharacters);
 
   includeNumericCharacters =  window.confirm('Numeric Characters: Click OK to include & CANCEL to exclude.');
   characterComposition.push(includeNumericCharacters);
 
-  includeLowerCaseCharacters =  window.confirm('Lower Case Characters: Click OK to include & CANCEL to exclude.');
-  characterComposition.push(includeLowerCaseCharacters);
-
-  includeUpperCaseCharacters =  window.confirm('Upper Case Characters: Click OK to include & CANCEL to exclude.');
-  characterComposition.push(includeUpperCaseCharacters);
-
   console.log(characterComposition);
   console.log(characterComposition.includes(false));
+
   if (characterComposition.includes(false)) {
 
   }
@@ -75,7 +76,18 @@ function characterDefinition() {
   return characterComposition;
 }
 
-function createPassword(numberOfCharacters) {
+function createPassword(numberOfCharacters, returned) {
+  console.log(returned);
+  let returned2 = [];
+
+  for (let i = 0; i < returned.length; i++) {
+    if (returned[i]) {
+      returned2.push(i);
+    }
+  }
+  // let returned2 = returned.map((element, index) => {console.log(element); if (element === true) {return index}});
+  console.log(returned2)
+
   const alphabetLowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   const alphabetUpperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   const specialCharacters = ['!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~',']',';'];
@@ -89,9 +101,22 @@ function createPassword(numberOfCharacters) {
   let characterArray = [];
 
   for (let i = 0; i < numberOfCharacters; i++) {
-    let number2 = Math.floor(Math.random() * 4);
-    characterSelection.push(number2);
+    //select random number out of the array each time
+    //so if the array length is 2... determines random number then pulls at that index
+
+    let number2 = Math.floor(Math.random() * returned2.length);
+
+    console.log('returned2 = ', returned2, 'number2 = ', number2);
+
+    characterSelection.push(returned2[number2]);
+
+    // original code
+    // let number2 = Math.floor(Math.random() * 4);
+    // characterSelection.push(number2);
+
   }
+
+  console.log('characterSelection = ', characterSelection);
 
 
   for (let i = 0; i < numberOfCharacters; i++) {
@@ -113,8 +138,6 @@ function createPassword(numberOfCharacters) {
     password.push(characterArray[number]);
   }
 
-  console.log(characterSelection);
-  console.log(characterSelection.length);
   console.log(randomNumbers);
   console.log(password);
   console.log(password.length);
