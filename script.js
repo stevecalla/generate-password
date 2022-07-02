@@ -54,13 +54,13 @@ function getCharacterTypes() {
   let includeLowerCaseCharacters =  window.confirm(`LOWER CASE?\n\n(click OK to include & CANCEL to exclude)`);
   characterSelection.push(includeLowerCaseCharacters);
   
-  let includeUpperCaseCharacters =  window.confirm(`Upper Case?\n\n(click OK to include & CANCEL to exclude)`);
+  let includeUpperCaseCharacters =  window.confirm(`UPPER CASE?\n\n(click OK to include & CANCEL to exclude)`);
   characterSelection.push(includeUpperCaseCharacters);
 
-  let includeSpecialCharacters =  window.confirm(`Special Characters?\n\n(click OK to include & CANCEL to exclude)`);
+  let includeSpecialCharacters =  window.confirm(`SPECIAL CHARACTERS?\n\n(click OK to include & CANCEL to exclude)`);
   characterSelection.push(includeSpecialCharacters);
 
-  let includeNumericCharacters =  window.confirm(`Numeric Characters?\n\n(click OK to include & CANCEL to exclude)`);
+  let includeNumericCharacters =  window.confirm(`NUMBERS?\n\n(click OK to include & CANCEL to exclude)`);
   characterSelection.push(includeNumericCharacters);
 
   return characterSelection;
