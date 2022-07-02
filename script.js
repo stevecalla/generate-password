@@ -19,7 +19,7 @@ function generatePassword() {
   let characterType = isCharacterType ? convertCharacterType(isCharacterType): undefined;
   let validCharacterTypes = characterType ? validateCharacterTypes(characterType) : undefined;
   let characterTypeList = validCharacterTypes ? getCharacterTypeList(validPasswordLength, validCharacterTypes): undefined;
-  let password = validCharacterTypes ? createPassword(validPasswordLength, characterTypeList) : generatePassword();
+  let password = characterTypeList ? createPassword(characterTypeList) : generatePassword();
   return password;
 }
 
@@ -98,7 +98,7 @@ function getCharacterTypeList(numberOfCharacters, characterTypes) {
 }
 
 //creates password
-function createPassword(numberOfCharacters, characterSelection) { //refactor
+function createPassword(characterSelection) { //refactor
   const alphabetLowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   const alphabetUpperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   const specialCharacters = ['!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~',']',';'];
@@ -109,7 +109,8 @@ function createPassword(numberOfCharacters, characterSelection) { //refactor
   let characters = [];
 
   //determines which character array to select character from
-  for (let i = 0; i < numberOfCharacters; i++) {
+  // for (let i = 0; i < numberOfCharacters; i++) {
+  for (let i = 0; i < characterSelection.length; i++) {
     if (characterSelection[i] === 0) {
       characters = alphabetLowerCase;
     } else if (characterSelection[i] === 1) {
