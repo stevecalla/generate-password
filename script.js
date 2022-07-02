@@ -16,8 +16,9 @@ function writePassword() {
 function generatePassword() {
   let passwordLength = getPasswordLength();
   let validPasswordLength = validatePasswordLength(passwordLength);
-  let characterTypes = getCharacterSelection(validPasswordLength); //refactor
-  let password = createPassword(validPasswordLength, characterTypes); //refactor
+  let characterTypes = validPasswordLength ? getCharacterTypes() : undefined;
+  let validCharacterTypes = characterTypes ? validateCharacterTypes(characterTypes) : undefined;
+  let password = validCharacterTypes ? createPassword(validPasswordLength, validCharacterTypes) : generatePassword(); //refactor
   return password;
 }
 
@@ -29,40 +30,40 @@ function getPasswordLength() {
 function validatePasswordLength(passwordLength) {
   if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
     window.alert(`Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`);
-    return generatePassword();
+    // return generatePassword();
+    return;
   } else {
     return passwordLength;
   }
 }
 
-function getCharacterSelection() {
-  let includeSpecialCharacters;
-  let includeNumericCharacters;
-  let includeLowerCaseCharacters;
-  let includeUpperCaseCharacters;
-  let characterComposition = [];
+function getCharacterTypes() {
+  let characterSelection = [];
 
-  includeLowerCaseCharacters =  window.confirm(`LOWER CASE?\n\n(click OK to include & CANCEL to exclude)`);
-  characterComposition.push(includeLowerCaseCharacters);
+  let includeLowerCaseCharacters =  window.confirm(`LOWER CASE?\n\n(click OK to include & CANCEL to exclude)`);
+  characterSelection.push(includeLowerCaseCharacters);
   
-  includeUpperCaseCharacters =  window.confirm(`Upper Case?\n\n(click OK to include & CANCEL to exclude)`);
-  characterComposition.push(includeUpperCaseCharacters);
+  let includeUpperCaseCharacters =  window.confirm(`Upper Case?\n\n(click OK to include & CANCEL to exclude)`);
+  characterSelection.push(includeUpperCaseCharacters);
 
-  includeSpecialCharacters =  window.confirm(`Special Characters?\n\n(click OK to include & CANCEL to exclude)`);
-  characterComposition.push(includeSpecialCharacters);
+  let includeSpecialCharacters =  window.confirm(`Special Characters?\n\n(click OK to include & CANCEL to exclude)`);
+  characterSelection.push(includeSpecialCharacters);
 
-  includeNumericCharacters =  window.confirm(`Numeric Characters?\n\n(click OK to include & CANCEL to exclude)`);
-  characterComposition.push(includeNumericCharacters);
+  let includeNumericCharacters =  window.confirm(`Numeric Characters?\n\n(click OK to include & CANCEL to exclude)`);
+  characterSelection.push(includeNumericCharacters);
 
-  if (!characterComposition.includes(true)) {
-    window.alert(`Password must contain at least one character type.\n\nPlease try again.`)
-    return getCharacterSelection();
-  }
-
-  return characterComposition;
+  return characterSelection;
 }
 
-function createPassword(numberOfCharacters, characterTypes) {
+function validateCharacterTypes(characterTypes) {
+  if (!characterTypes.includes(true)) {
+    window.alert(`Password must contain at least one character type.\n\nPlease try again.`)
+    return getCharacterTypes();
+  }
+  return characterTypes;
+}
+
+function createPassword(numberOfCharacters, characterTypes) { //refactor
   let returned2 = [];
 
   for (let i = 0; i < characterTypes.length; i++) {
@@ -83,7 +84,6 @@ function createPassword(numberOfCharacters, characterTypes) {
 
   for (let i = 0; i < numberOfCharacters; i++) {
     let number2 = getRandomNumber(returned2.length);
-    console.log('87 = ', number2)
     characterSelection.push(returned2[number2]);
   }
 
@@ -102,7 +102,6 @@ function createPassword(numberOfCharacters, characterTypes) {
     randomNumbers.push(number);
     password.push(characterArray[number]);
   }
-  console.log(password.join(''));
   return password.join('');
 }
 
