@@ -8,6 +8,7 @@ generateBtn.addEventListener("click", writePassword);
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
+  if (passwordText.value !== "") {passwordText.style.color = 'blue'}; //added color to password
   passwordText.value = password;
 }
 
@@ -22,7 +23,6 @@ function generatePassword() {
     let passwordText = document.querySelector("#password");
     passwordText = document.querySelector("#password").placeholder = "Your Secure Password";
     document.querySelector("#password").style.color = '#757575';
-    document.querySelector("#password").style.color = 'red';
     return passwordText;
   }
 
