@@ -90,15 +90,16 @@ function validatePasswordLength(passwordLength) {
   //   return passwordLength;
   // }
 
-  if (passwordLength === null) {
+  if (passwordLength === null) { //if user selects window prompt cancel return null then exit program
     return null;
-  } else if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+  } else if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) { //if user enters non-numeric characters or length <8 >128 request again
     window.alert(
       `Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`
     );
     let getValidPasswordLength = getPasswordLength();
     return validatePasswordLength(getValidPasswordLength);
   } 
+  return passwordLength;
 }
 
 //get character type selection (e.g. lower, upper, special, number)
