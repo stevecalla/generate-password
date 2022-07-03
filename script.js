@@ -8,7 +8,8 @@ generateBtn.addEventListener("click", writePassword);
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-  if (passwordText.value !== "") {passwordText.style.color = 'blue'}; //added color to password
+  console.log(passwordText.value, passwordText.value.length, typeof passwordText.value)
+  if (passwordText.value !== '0') {passwordText.style.color = 'blue'}; //added color to password
   passwordText.value = password;
 }
 
@@ -16,18 +17,13 @@ function writePassword() {
 function generatePassword() {
   let passwordLength = getPasswordLength(); //get password length
   console.log("1 = ", passwordLength);
-  
-  // if (passwordLength === null) { return document.querySelector("#password").placeholder = "Your Secure Password"};
-
-  if (passwordLength === null) { 
-    let passwordText = document.querySelector("#password");
-    passwordText = document.querySelector("#password").placeholder = "Your Secure Password";
-    document.querySelector("#password").style.color = '#757575';
-    return passwordText;
-  }
 
   let validPasswordLength = validatePasswordLength(passwordLength); //validate password length
   console.log("2 = ", validPasswordLength);
+
+  if (validPasswordLength === null) { //exit if user selects cancel in window prompt box
+    return null;
+  }
 
   let isCharacterType = getCharacterTypes(); //get character types
   console.log("3 = ", isCharacterType);
@@ -84,15 +80,25 @@ function getPasswordLength() {
 //ensure password length is a number (isNaN), is at least 8, is at most 128
 function validatePasswordLength(passwordLength) {
   console.log(passwordLength, isNaN(passwordLength));
-  if (passwordLength !== null && (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128)) {
+  // if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+  //   window.alert(
+  //     `Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`
+  //   );
+  //   let getValidPasswordLength = getPasswordLength();
+  //   return validatePasswordLength(getValidPasswordLength);
+  // } else {
+  //   return passwordLength;
+  // }
+
+  if (passwordLength === null) {
+    return null;
+  } else if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
     window.alert(
       `Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`
     );
     let getValidPasswordLength = getPasswordLength();
     return validatePasswordLength(getValidPasswordLength);
-  } else {
-    return passwordLength;
-  }
+  } 
 }
 
 //get character type selection (e.g. lower, upper, special, number)
