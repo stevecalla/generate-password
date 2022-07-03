@@ -15,6 +15,16 @@ function writePassword() {
 function generatePassword() {
   let passwordLength = getPasswordLength(); //get password length
   console.log("1 = ", passwordLength);
+  
+  // if (passwordLength === null) { return document.querySelector("#password").placeholder = "Your Secure Password"};
+
+  if (passwordLength === null) { 
+    let passwordText = document.querySelector("#password");
+    passwordText = document.querySelector("#password").placeholder = "Your Secure Password";
+    document.querySelector("#password").style.color = '#757575';
+    document.querySelector("#password").style.color = 'red';
+    return passwordText;
+  }
 
   let validPasswordLength = validatePasswordLength(passwordLength); //validate password length
   console.log("2 = ", validPasswordLength);
@@ -49,18 +59,32 @@ function generatePassword() {
 
 //get password length input
 function getPasswordLength() {
-  let numberOfCharacters = parseInt(
+  // let numberOfCharacters = parseInt(
+  //   window.prompt(
+  //     "How many characters would you like the password to contain?\n(must be at least 8 and at most 128)",
+  //     8
+  //   )
+  // );
+  let numberOfCharacters =
     window.prompt(
       "How many characters would you like the password to contain?\n(must be at least 8 and at most 128)",
       8
     )
-  );
+    console.log(numberOfCharacters);
+
+    if (numberOfCharacters !== null) {
+      parseInt(numberOfCharacters);
+    } 
+    else {
+      return null;
+    }
   return numberOfCharacters;
 }
 
 //ensure password length is a number (isNaN), is at least 8, is at most 128
 function validatePasswordLength(passwordLength) {
-  if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+  console.log(passwordLength, isNaN(passwordLength));
+  if (passwordLength !== null && (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128)) {
     window.alert(
       `Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`
     );
