@@ -13,33 +13,36 @@ function writePassword() {
 
 // My code
 function generatePassword() {
-
   let passwordLength = getPasswordLength(); //get password length
-  console.log('1 = ', passwordLength);
+  console.log("1 = ", passwordLength);
 
   let validPasswordLength = validatePasswordLength(passwordLength); //validate password length
-  console.log('2 = ', validPasswordLength);
+  console.log("2 = ", validPasswordLength);
 
   let isCharacterType = getCharacterTypes(); //get character types
-  console.log('3 = ', isCharacterType);
+  console.log("3 = ", isCharacterType);
   // let isCharacterType = validPasswordLength ? getCharacterTypes() : undefined;
 
   let characterType = convertCharacterType(isCharacterType); //convert to array of numbers representing character types
-  console.log('4 = ', characterType);
+  console.log("4 = ", characterType);
   // let characterType = isCharacterType ? convertCharacterType(isCharacterType) : undefined;
 
-  let validCharacterTypes = characterType ? validateCharacterTypes(characterType) : undefined; //validate character types
-  console.log('5 = ', characterType);
+  let validCharacterTypes = characterType
+    ? validateCharacterTypes(characterType)
+    : undefined; //validate character types
+  console.log("5 = ", characterType);
   // let validCharacterTypes = characterType ? validateCharacterTypes(characterType) : undefined;
 
-  let characterTypeList = getCharacterTypeList(validPasswordLength, validCharacterTypes); //randomly select character type for each character in the password
-  console.log('6 = ', characterTypeList);
+  let characterTypeList = getCharacterTypeList(
+    validPasswordLength,
+    validCharacterTypes
+  ); //randomly select character type for each character in the password
+  console.log("6 = ", characterTypeList);
   // let characterTypeList = validCharacterTypes ? getCharacterTypeList(validPasswordLength, validCharacterTypes) : undefined;
 
   let password = createPassword(characterTypeList); //get password
-  console.log('7 = ', characterTypeList);
+  console.log("7 = ", characterTypeList);
   // let password = characterTypeList ? createPassword(characterTypeList) : generatePassword();
-
 
   return password;
 }
