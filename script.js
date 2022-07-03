@@ -13,21 +13,34 @@ function writePassword() {
 
 // My code
 function generatePassword() {
-  let passwordLength = getPasswordLength();
-  let validPasswordLength = validatePasswordLength(passwordLength);
-  let isCharacterType = validPasswordLength ? getCharacterTypes() : undefined;
-  let characterType = isCharacterType
-    ? convertCharacterType(isCharacterType)
-    : undefined;
-  let validCharacterTypes = characterType
-    ? validateCharacterTypes(characterType)
-    : undefined;
-  let characterTypeList = validCharacterTypes
-    ? getCharacterTypeList(validPasswordLength, validCharacterTypes)
-    : undefined;
-  let password = characterTypeList
-    ? createPassword(characterTypeList)
-    : generatePassword();
+
+  let passwordLength = getPasswordLength(); //get password length
+  console.log('1 = ', passwordLength);
+
+  let validPasswordLength = validatePasswordLength(passwordLength); //validate password length
+  console.log('2 = ', validPasswordLength);
+
+  let isCharacterType = getCharacterTypes(); //get character types
+  console.log('3 = ', isCharacterType);
+  // let isCharacterType = validPasswordLength ? getCharacterTypes() : undefined;
+
+  let characterType = convertCharacterType(isCharacterType); //convert to array of numbers representing character types
+  console.log('4 = ', characterType);
+  // let characterType = isCharacterType ? convertCharacterType(isCharacterType) : undefined;
+
+  let validCharacterTypes = characterType ? validateCharacterTypes(characterType) : undefined; //validate character types
+  console.log('5 = ', characterType);
+  // let validCharacterTypes = characterType ? validateCharacterTypes(characterType) : undefined;
+
+  let characterTypeList = getCharacterTypeList(validPasswordLength, validCharacterTypes); //randomly select character type for each character in the password
+  console.log('6 = ', characterTypeList);
+  // let characterTypeList = validCharacterTypes ? getCharacterTypeList(validPasswordLength, validCharacterTypes) : undefined;
+
+  let password = createPassword(characterTypeList); //get password
+  console.log('7 = ', characterTypeList);
+  // let password = characterTypeList ? createPassword(characterTypeList) : generatePassword();
+
+
   return password;
 }
 
@@ -48,8 +61,8 @@ function validatePasswordLength(passwordLength) {
     window.alert(
       `Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`
     );
-    // return generatePassword();
-    return;
+    let getValidPasswordLength = getPasswordLength();
+    return validatePasswordLength(getValidPasswordLength);
   } else {
     return passwordLength;
   }
