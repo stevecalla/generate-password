@@ -1,13 +1,15 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
+let generateBtn = document.querySelector("#generate");
+let copyButton = document.getElementById('copy-button');
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+copyButton.addEventListener("click", copyToClipboard);
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  let password = generatePassword();
+  let passwordText = document.querySelector("#password");
   console.log(passwordText.value, passwordText.value.length, typeof passwordText.value)
   if (passwordText.value !== '0') {passwordText.style.color = 'blue'}; //added color to password
   passwordText.value = password;
@@ -296,4 +298,11 @@ function createPassword(characterSelection) {
 function getRandomNumber(arrayLength) {
   let randomNumber = Math.floor(Math.random() * arrayLength);
   return randomNumber;
+}
+
+//copy password to clipboard
+function copyToClipboard() {
+  let passwordText = document.querySelector("#password");
+  passwordText.select();
+  document.execCommand("copy");
 }
