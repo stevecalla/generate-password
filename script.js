@@ -8,7 +8,9 @@ generateBtn.addEventListener("click", writePassword);
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-  if (passwordText.value !== '0') {passwordText.style.color = 'blue'}; //added color to password
+  if (passwordText.value !== "0") {
+    passwordText.style.color = "blue";
+  } //added color to password
   passwordText.value = password;
 }
 
@@ -16,7 +18,8 @@ function writePassword() {
 function generatePassword() {
   let passwordLength = getPasswordLength(); //get password length
   let validPasswordLength = validatePasswordLength(passwordLength); //validate password length
-  if (validPasswordLength === null) { //exit if user selects cancel in window prompt box
+  if (validPasswordLength === null) {
+    //exit if user selects cancel in window prompt box
     return null;
   }
   let isCharacterType = getCharacterTypes(); //get character types
@@ -34,31 +37,35 @@ function generatePassword() {
 
 //get password length input
 function getPasswordLength() {
-  let numberOfCharacters =
-    window.prompt(
-      "How many characters would you like the password to contain?\n(must be at least 8 and at most 128)",
-      8
-    );
-    if (numberOfCharacters !== null) {
-      parseInt(numberOfCharacters);
-    } 
-    else {
-      return null;
-    }
+  let numberOfCharacters = window.prompt(
+    "How many characters would you like the password to contain?\n(must be at least 8 and at most 128)",
+    8
+  );
+  if (numberOfCharacters !== null) {
+    parseInt(numberOfCharacters);
+  } else {
+    return null;
+  }
   return numberOfCharacters;
 }
 
 //ensure password length is a number (isNaN), is at least 8, is at most 128
 function validatePasswordLength(passwordLength) {
-  if (passwordLength === null) { //if user selects window prompt cancel return null then exit program
+  if (passwordLength === null) {
+    //if user selects window prompt cancel return null then exit program
     return null;
-  } else if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) { //if user enters non-numeric characters or length <8 >128 request again
+  } else if (
+    isNaN(passwordLength) ||
+    passwordLength < 8 ||
+    passwordLength > 128
+  ) {
+    //if user enters non-numeric characters or length <8 >128 request again
     window.alert(
       `Password must be:\n\n  (a) at least 8 characters,\n  (b) at most 128 characters,\n  (c) a number.\n\n Please enter again.`
     );
     let getValidPasswordLength = getPasswordLength();
     return validatePasswordLength(getValidPasswordLength);
-  } 
+  }
   return passwordLength;
 }
 
